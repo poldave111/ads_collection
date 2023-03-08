@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => { 
     try {
         const { id } = req.params;
-        const found = ads.findById(id);
+        const found = await ads.findById(id);
         if(found) {
             console.log(found);
             res.json(found.toObject());
@@ -50,7 +50,7 @@ exports.post = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const { id } = req.params;
-        const found = ads.findById(id);
+        const found = await ads.findById(id);
         if(found) {
             await ads.deleteOne({ _id: id }); //  await Test.deleteOne({ _id: entry._id });
             res.json({message: 'ok'});
@@ -67,7 +67,7 @@ exports.delete = async (req, res) => {
 exports.put = async (req, res) => {
     try {
         const { id } = req.params;
-        const found = ads.findById(id);
+        const found = await ads.findById(id);
         if(found) {
             await ads.updateOne({_id: id}, req.body);
             res.json({message: 'ok'})
