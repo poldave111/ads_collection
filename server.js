@@ -5,9 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const ads = require('./routes/ads.routes');
-// const testimonials = require('./routes/testimonials.routes');
-// const concerts = require('./routes/concerts.routes');
-// const seats = require('./routes/seats.routes');
+const auth = require('./routes/auth.routes');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -15,6 +13,7 @@ app.use(helmet());
 app.use(cors());
 
 app.use('/api/', ads);
+app.use('/api/auth', auth);
 // app.use('/api', testimonials); // add post routes to server
 // app.use('/api', concerts);
 // app.use('/api', seats);
