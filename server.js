@@ -12,6 +12,10 @@ const MongoStore = require('connect-mongo');
 // connects our backend code with the database
 mongoose.connect('mongodb+srv://davepol:Olivermuc1@davepolcluster.yn1hyo1.mongodb.net/ads_collection_db?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
+db.once('open', () => {
+    console.log('Connected to the database');
+  });
+  db.on('error', err => console.log('Error ' + err));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -36,13 +40,7 @@ app.use((req, res) => {
 });
 
 
-
 //mongodb+srv://davepol:<password>@davepolcluster.yn1hyo1.mongodb.net/?retryWrites=true&w=majority
-
-db.once('open', () => {
-    console.log('Connected to the database');
-  });
-  db.on('error', err => console.log('Error ' + err));
 
 const server = app.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: 8000')
