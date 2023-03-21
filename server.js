@@ -2,41 +2,40 @@ const express = require('express');
 const path = require('path');
 const app = express(); 
 const cors = require('cors');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const ads = require('./routes/ads.routes');
 const auth = require('./routes/auth.routes');
+const MongoStore = require('connect-mongo');
+
+// connects our backend code with the database
+mongoose.connect('mongodb+srv://davepol:Olivermuc1@davepolcluster.yn1hyo1.mongodb.net/ads_collection_db?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+if(process.env.NODE_ENV !== 'production') {
+    app.use(
+      cors({
+        origin: ['http://localhost:3000'],
+        credentials: true,
+      })
+    );
+  }
 
 app.use('/api/', ads);
 app.use('/api/auth', auth);
-// app.use('/api', testimonials); // add post routes to server
-// app.use('/api', concerts);
-// app.use('/api', seats);
-
-
-  
-// app.use(express.static(path.join(__dirname, '/client/build')));
-
-
-
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/client/build/index.html'));
-// });
+app.use(session({ secret: process.env.SESSION_SECRET || 'abc', store: MongoStore.create(mongoose.connection), resave: false, saveUnitialized: false, cookie: {
+    secure: process.env.NODE_ENV == 'production',
+  }}));
 
 app.use((req, res) => {
     res.status(404).json({message: 'error 404 - not found'});
 });
 
 
-
-// connects our backend code with the database
-mongoose.connect('mongodb+srv://davepol:Olivermuc1@davepolcluster.yn1hyo1.mongodb.net/ads_collection_db?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
 
 //mongodb+srv://davepol:<password>@davepolcluster.yn1hyo1.mongodb.net/?retryWrites=true&w=majority
 

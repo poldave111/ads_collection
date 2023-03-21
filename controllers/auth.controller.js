@@ -1,16 +1,19 @@
-const User = require('../models/User.model');
+const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
+const getImageFileType = require('../utils/getImageFileType');
 
 exports.register = async (req, res) => {
     try {
         const { login, password } = req.body; 
-        if (login && typeof login === 'string' && password && typeof password === 'string') {
+        const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
+
+        if (login && typeof login === 'string' && password && typeof password === 'string' && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType))  {
             const userWithLogin = await User.findOne({ login });
             if (userWithLogin) {
                 return res.status(400).send({ message: 'User whit this login is already registered.'});
             }
     
-            const user = await new User.create({ login, password: await bcrypt.hash(password, 10) });
+            const user = await new User.create({ login, password: await bcrypt.hash(password, 10), avatar: req.file.filename });
             res.status(201).send({ message: 'User created' + user.login });
     
         }  else {
@@ -24,21 +27,37 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { login, password } = req.body; 
-        if (login && typeof login === 'string' && password && typeof password === 'string') {
-            const user = await User.findOne({ login });
-            if (!user) {
+        if (login && typeof login === 'string' && password && typeof password === 'string' && req.file) {
+            const [, ext] = req.file.orignalname.splt('.');
+            if(ext !== 'jpg' && ext !== 'png' && ext !== 'jpeg') {
+                res.status(400).send({ message: 'Fle extension incorrect' });
+            }
+            const userWithLogin = await User.findOne({ login });
+            if (!userWithLogin) {
                 res.status(400).send({ message: 'Login or password are incorrect' });
             }
             else {
-                if (bcrypt.compareSync(password, user.password)) {
+                if (bcrypt.compareSync(password, userWithLogin.password)) {
+                    req.session = {login: userWithLogin.login, id: userWithLogin.id };
+
                     res.status(200).send({ message: 'Login successful' });
                 }
                 else {
                     res.status(400).send({ message: 'Login or password are incorrect'});
                 }
             }
-        }
+        } else {
+            res.status(400).send({ message: 'Bad request' });
+        } 
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
+}
+
+exports.getUser = async (req, res) => {
+    res.send('I\'m logged in');
+}
+
+exports.delete = async (req, res) => {
+    req.session.destroy();
 }
