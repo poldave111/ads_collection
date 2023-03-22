@@ -30,6 +30,8 @@ db.once('open', () => {
     }
     app.use('/api/', ads);
     app.use('/api/auth', auth);
+    app.use(express.static(path.join(__dirname, '/client/build')));
+    app.use(express.static(path.join(__dirname, '/public')));
     app.use(session({ 
         secret: process.env.SESSION_SECRET || 'abc', 
         store: MongoStore.create(mongoose.connection), 
