@@ -16,39 +16,37 @@ const db = mongoose.connection;
 db.on('error', err => console.log('Error ' + err));
 
 db.once('open', () => {
-    console.log('Connected to the database');
-    app.use(express.urlencoded({ extended: false }));
-    app.use(express.json());
-    app.use(helmet());
-    if(process.env.NODE_ENV !== 'production') {
-        app.use(
-        cors({
-            origin: ['http://localhost:3000'],
-            credentials: true,
-            })
-        );
+  console.log('Connected to the database');
+  
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(helmet());
+
+  if(process.env.NODE_ENV !== 'production') {
+    app.use(
+      cors({
+        origin: ['http://localhost:3000'],
+        credentials: true,
+      })
+    );
+  }
+
+  app.use('/api/', ads);
+  app.use('/api/auth', auth);
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'abc',
+    store: MongoStore.create(mongoose.connection),
+    resave: false,
+    saveUnitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV == 'production',
+      }
     }
-    app.use('/api/', ads);
-    app.use('/api/auth', auth);
-    app.use(express.static(path.join(__dirname, '/client/build')));
-    app.use(express.static(path.join(__dirname, '/public')));
-    app.use(session({ 
-        secret: process.env.SESSION_SECRET || 'abc', 
-        store: MongoStore.create(mongoose.connection), 
-        resave: false, 
-        saveUnitialized: false, 
-        cookie: {
-            secure: process.env.NODE_ENV == 'production',
-            }
-        }
-    ));
-});
-
-app.use((req, res) => {
+  ));
+  app.use((req, res) => {
     res.status(404).json({message: 'error 404 - not found'});
+  });
 });
-
-//mongodb+srv://davepol:<password>@davepolcluster.yn1hyo1.mongodb.net/?retryWrites=true&w=majority
 
 const server = app.listen(process.env.PORT || 8000, () => {
     console.log('Server is running on port: 8000');
