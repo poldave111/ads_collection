@@ -37,7 +37,7 @@ db.once('open', () => {
     secret: process.env.SESSION_SECRET || 'abc',
     store: MongoStore.create(mongoose.connection),
     resave: false,
-    saveUnitialized: false,
+    saveUninitialized: false,
     cookie: {
         secure: process.env.NODE_ENV == 'production',
       }

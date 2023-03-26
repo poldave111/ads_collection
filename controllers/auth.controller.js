@@ -4,7 +4,7 @@ const getImageFileType = require('../utils/getImageFileType');
 
 exports.register = async (req, res) => {
     try {
-        const { login, password } = req.body; 
+        const { login, password, phone } = req.body; 
         const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
 
         if (login && typeof login === 'string' && password && typeof password === 'string' && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType))  {
@@ -13,8 +13,13 @@ exports.register = async (req, res) => {
                 return res.status(400).send({ message: 'User whit this login is already registered.'});
             }
     
-            const user = await new User.create({ login, password: await bcrypt.hash(password, 10), avatar: req.file.filename });
-            res.status(201).send({ message: 'User created' + user.login });
+            const user = await User.create(
+                { login, 
+                password: await bcrypt.hash(password, 10), 
+                avatar: req.file.filename,
+                phone,
+            });
+            res.status(201).send({ message: 'User created ' + user.login });
     
         }  else {
             res.status(400).send({message: 'Bad request'});
