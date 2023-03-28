@@ -1,4 +1,5 @@
 const ads = require('../models/ad.model');
+const getImageFileType = require('../utils/getImageFileType');
 
 exports.getAll = async (req, res) => {
     try {
@@ -33,9 +34,10 @@ exports.search = async (req, res) => {
 exports.post = async (req, res) => {
     try {
         const { title, content, date, image, price, location } = req.body; 
+        const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
         console.log(req.body);
-        if(title && content && date && image && price && location) {
-            const ad = new ads({title, content, date, image, price, location});
+        if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType) && price && location) {
+            const ad = new ads({title, content, date, fileType, price, location});
             await ad.save();
             res.json(ad);
         } else {
