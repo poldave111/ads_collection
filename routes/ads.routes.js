@@ -8,7 +8,7 @@ router.get('/ads/:id', AdsController.getById);
 
 router.get('/ads/search/:searchPhrase', AdsController.search);
 
-router.post('/ads', AdsController.post);
+router.post('/ads', imageUpload.single('image'), AdsController.post);
 
 router.delete('/ads/:id', AdsController.delete)
 
