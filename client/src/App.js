@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAds } from "./redux/adsRedux";
+import MainPage from "./components/MainPage/MainPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const App = () => {
 
 
   return (
-    <div>{data.map((line) => <li>({line._id}), {line.title}</li>)}</div>
+    <MainPage />
+    // <div>{data.map((line) => <li>({line._id}), {line.title}</li>)}</div>
   );
 };
 

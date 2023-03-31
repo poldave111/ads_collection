@@ -37,7 +37,7 @@ exports.post = async (req, res) => {
         const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
         console.log(req.body);
         const image = req.file.fileName;
-        if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType) && price && location) {
+        if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
             const ad = new ads({title, content, date, image, price, location});
             await ad.save();
             res.json(ad);
