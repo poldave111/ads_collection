@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const AdsController = require('../controllers/ads.controller');
+const imageUpload = require('../utils/imageUpload');
 
 router.get('/ads', AdsController.getAll);
 
