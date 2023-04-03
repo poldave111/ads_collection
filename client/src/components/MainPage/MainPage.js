@@ -6,12 +6,13 @@ const  MainPage = () => {
     const data = useSelector((state) => {
         return state.ads;
     });
-    console.log('data', data);
+    console.log('data MainPage.js', data);
     return (
+
         <>
-             {data.map(ad => <Ad data={ad.data} />)}
+             {data.map(ad => <Ad key={data.id} ad={ad} />)}
         </>
     )
 }
 
-export default MainPage;
+export default MainPage; 

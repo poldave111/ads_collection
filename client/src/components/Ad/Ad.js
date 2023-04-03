@@ -1,15 +1,14 @@
 import { useSelector } from "react-redux";
 import { Form, Col, Button } from "react-bootstrap";
-
+import styles from './Ad.module.scss';
 
 const  Ad = (props) => {
-    const data = useSelector((state) => {
-        return state.ads;
-    })
+
     return (
-        <>
-            <li>Title: {props.title}</li>
-        </>
+        <div className={styles.card}>
+
+            <li>Title: {props.ad.title}</li>
+        </div>
     )
 }
 

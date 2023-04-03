@@ -14,7 +14,7 @@ const App = () => {
     return state.ads;
   });
 
-  console.log('data', data);
+  console.log('data app.js', data);
 
   return (
     <MainPage />
