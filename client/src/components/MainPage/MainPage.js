@@ -5,10 +5,11 @@ import Ad from "../Ad/Ad";
 const  MainPage = () => {
     const data = useSelector((state) => {
         return state.ads;
-    })
+    });
+    console.log('data', data);
     return (
         <>
-             {data.map(ad => <Ad />)}
+             {data.map(ad => <Ad data={ad.data} />)}
         </>
     )
 }

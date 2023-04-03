@@ -14,6 +14,7 @@ const App = () => {
     return state.ads;
   });
 
+  console.log('data', data);
 
   return (
     <MainPage />

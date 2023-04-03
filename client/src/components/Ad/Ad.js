@@ -8,9 +8,9 @@ const  Ad = (props) => {
     })
     return (
         <>
-            <li></li>
+            <li>Title: {props.title}</li>
         </>
     )
 }
 
-export default MainPage;
+export default Ad;
