@@ -37,7 +37,8 @@ exports.post = async (req, res) => {
         const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
         console.log(req.body);
         console.log('fileType', fileType);
-        const image = req.file.fileName;
+        const image = req.file.filename;
+        console.log('-----------------image-------------------', image);
         if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
             const ad = new ads({title, content, date, image, price, location});
             await ad.save();
@@ -73,6 +74,7 @@ exports.put = async (req, res) => {
         const { id } = req.params;
         const found = await ads.findById(id);
         if(found) {
+            console.log(req.body);
             await ads.updateOne({_id: id}, req.body);
             res.json({message: 'ok'})
         }else {

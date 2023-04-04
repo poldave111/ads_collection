@@ -8,6 +8,7 @@ const  Ad = (props) => {
         <div className={styles.card}>
 
             <li>Title: {props.ad.title}</li>
+            <Button>More</Button>
         </div>
     )
 }
