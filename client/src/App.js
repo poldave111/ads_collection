@@ -21,10 +21,12 @@ const App = () => {
 
   return (
     <>
-      <MainPage />
+     
       <Routes>
-        <Route path="/adview" element={<MaxiAd title={data[0]?.title} />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/edit" element={<EditAd adId={data[0]?._id} />} />
+        <Route path="/adview" element={<MaxiAd title={data[0]?.title} />} />
+        
       </Routes>
     </>
     
