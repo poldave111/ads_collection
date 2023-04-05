@@ -2,15 +2,14 @@ import { useSelector } from "react-redux";
 import { Form, Col, Button } from "react-bootstrap";
 import styles from './MaxiAd.module.scss';
 
-const  Ad = (props) => {
+const  MaxiAd = (props) => {
 
     return (
         <div className={styles.card}>
 
-            <li>Title: {props.ad.title}</li>
-            <Button>Edit Ad</Button>
+            <li>{props.title}</li>
         </div>
     )
 }
 
-export default Ad;
+export default MaxiAd;
