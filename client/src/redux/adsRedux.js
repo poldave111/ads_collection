@@ -77,18 +77,20 @@ export const getAllAds = () => {
           `${API_URL}/ads/${id}`,
           {
             method: 'put',
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            headers: {
+              'Content-Type': 'application/json'
+            },
           },
         );
         const result = await res.json();
         console.log('data from server', result);
         dispatch(setSelectedAd(result));
         //dispatch(endRequest());
-  
       } catch(e) {
         dispatch(errorRequest({ error: e.message }));
       }
-  
+      
     };
   }
 

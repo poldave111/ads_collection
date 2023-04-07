@@ -13,6 +13,6 @@ router.post('/ads', imageUpload.single('image'), AdsController.post);
 
 router.delete('/ads/:id', AdsController.delete)
 
-router.put('/ads/:id', AdsController.put);
+router.put('/ads/:id', imageUpload.single('image'), AdsController.put);
 
 module.exports = router; 
