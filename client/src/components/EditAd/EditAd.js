@@ -67,7 +67,7 @@ function EditAd(props) {
                     <input type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
 
                     <label htmlFor="image">Image:</label>
-                    <input type="file" id="image" name="image" value={image} onChange={(event) => setImage(event.target.value)} /><br />
+                    <input type="input" id="image" name="image" value={image} onChange={(event) => setImage(event.target.value)} /><br />
 
                     <label htmlFor="price">Price:</label>
                     <input type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />

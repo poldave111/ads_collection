@@ -73,9 +73,13 @@ exports.put = async (req, res) => {
     try {
         const { id } = req.params;
         const found = await ads.findById(id);
+        const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
+        const image = req.file.filename;
+
         if(found) {
             console.log(req.body);
-            await ads.updateOne({_id: id}, req.body);
+            const ad = new ads({title, content, date, image, price, location});
+            await ads.updateOne({_id: id}, ad);
             res.json({message: 'ok'})
         }else {
             res.status(404).json({message: 'not found'});
