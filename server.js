@@ -31,6 +31,7 @@ db.once('open', () => {
     );
   }
 
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use('/api/', ads);
   app.use('/api/auth', auth);
   app.use(session({

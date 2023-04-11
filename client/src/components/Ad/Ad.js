@@ -8,6 +8,7 @@ const  Ad = (props) => {
     return (
         <div className={styles.card}>
             <li>Title: {props.ad.title}</li>
+            <li>Image: <img src={`/uploads/${props.ad.image}`} /></li>
             <Link to="/adview"><Button>More</Button></Link>
         </div>
     )

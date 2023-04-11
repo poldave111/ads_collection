@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Form, Col, Button } from "react-bootstrap";
 import styles from './EditAd.module.scss';
 import { useEffect } from 'react';
@@ -7,6 +7,8 @@ import { getAdById, saveAdById } from '../../redux/adsRedux';
 //import { getAllAds } from "../../redux/adsRedux";
 
 function EditAd(props) {
+    const form = useRef(null);
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [date, setDate] = useState('');
@@ -27,15 +29,16 @@ function EditAd(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const payload = {
-            title,
-            content,
-            date,
-            image,
-            price,
-            location,
-            sellerId
-        }
+        // const payload = {
+        //     title,
+        //     content,
+        //     date,
+        //     image,
+        //     price,
+        //     location,
+        //     sellerId
+        // }
+        const payload = new FormData(form.current); // weź cały formularz tak jak jest i coś tam z polami zrób. 
         dispatch(saveAdById(props.adId, payload));
     }
 
@@ -55,7 +58,7 @@ function EditAd(props) {
     return (
         
             editedAd === null ? <p>loading...</p> : ( 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} ref={form}>
                     <h1>Id: {props.adId}</h1>
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
@@ -67,7 +70,7 @@ function EditAd(props) {
                     <input type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
 
                     <label htmlFor="image">Image:</label>
-                    <input type="input" id="image" name="image" value={image} onChange={(event) => setImage(event.target.value)} /><br />
+                    <input type="file" id="image" name="image" /><br />
 
                     <label htmlFor="price">Price:</label>
                     <input type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />

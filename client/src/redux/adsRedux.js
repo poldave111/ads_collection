@@ -77,10 +77,10 @@ export const getAllAds = () => {
           `${API_URL}/ads/${id}`,
           {
             method: 'put',
-            body: JSON.stringify(payload),
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            body: payload,
+            // headers: {
+            //   'Content-Type': 'multipart/form-data'
+            // },
           },
         );
         const result = await res.json();

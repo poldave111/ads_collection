@@ -40,7 +40,7 @@ exports.post = async (req, res) => {
         const image = req.file.filename;
         console.log('-----------------image-------------------', image);
         if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
-            const ad = new ads({title, content, date, image, price, location});
+            const ad = new ads({title, content, date, image, price, location}); // new ads({....}) tworzenie modelu w bazie
             await ad.save();
             res.json(ad);
         } else {
@@ -77,15 +77,15 @@ exports.put = async (req, res) => {
         const image = req.file.filename;
 
         if(found) {
-            console.log(req.body);
-            const ad = new ads({title, content, date, image, price, location});
+            console.log('req.body!!!', req.body);
+            const ad = {...req.body, image};
             await ads.updateOne({_id: id}, ad);
             res.json({message: 'ok'})
         }else {
             res.status(404).json({message: 'not found'});
         }
     } catch (err) {
-        console.log(err);
+        console.log('error krytyczny', err);
         res.status(500).json({message: 'Błąd krytyczny.'});
     }
 }
