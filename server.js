@@ -20,7 +20,9 @@ db.once('open', () => {
   
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
-  app.use(helmet());
+  app.use(helmet({
+    crossOriginResourcePolicy: false,
+  }));
 
   if(process.env.NODE_ENV !== 'production') {
     app.use(

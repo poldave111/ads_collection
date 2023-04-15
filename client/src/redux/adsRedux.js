@@ -78,9 +78,9 @@ export const getAllAds = () => {
           {
             method: 'put',
             body: payload,
-            // headers: {
-            //   'Content-Type': 'multipart/form-data'
-            // },
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
           },
         );
         const result = await res.json();
@@ -98,6 +98,7 @@ const adsReducer = (statePart = initialState, action) => {
     switch(action.type) {
         case SET_ADS:
             return {...statePart, allAds: action.payload};
+
         case SELECT_AD: 
             return {...statePart, selectedAd: action.payload};
             

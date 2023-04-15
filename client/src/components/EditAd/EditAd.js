@@ -58,28 +58,40 @@ function EditAd(props) {
     return (
         
             editedAd === null ? <p>loading...</p> : ( 
-                <form onSubmit={handleSubmit} ref={form}>
+                <Form onSubmit={handleSubmit} ref={form}>
                     <h1>Id: {props.adId}</h1>
-                    <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="title">Title:</Form.Label>
+                        <Form.Control type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
+                    </Form.Group>
 
-                    <label htmlFor="content">Content:</label>
-                    <textarea id="content" name="content" value={content} onChange={(event) => setContent(event.target.value)}></textarea><br />
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="content">Content:</Form.Label>
+                        <Form.Control as="textarea" rows={3} id="content" name="content" value={content} onChange={(event) => setContent(event.target.value)} muted /><br />
+                    </Form.Group>
 
-                    <label htmlFor="date">Date:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="date">Date:</Form.Label>
+                        <Form.Control type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="image">Image:</Form.Label>
+                        <Form.Control type="file" id="image" name="image" /><br />
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="price">Price:</Form.Label>
+                        <Form.Control type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />
+                    </Form.Group>
+                    
+                    <Form.Label className="mb-3">
+                        <Form.Label htmlFor="location">Location:</Form.Label>
+                        <Form.Control type="text" id="location" name="location" value={location} onChange={(event) => setLocation(event.target.value)} /><br />
+                    </Form.Label><br />
 
-                    <label htmlFor="image">Image:</label>
-                    <input type="file" id="image" name="image" /><br />
-
-                    <label htmlFor="price">Price:</label>
-                    <input type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />
-
-                    <label htmlFor="location">Location:</label>
-                    <input type="text" id="location" name="location" value={location} onChange={(event) => setLocation(event.target.value)} /><br />
-
-                    <button type="submit">Submit</button>
-                </form>
+                    <Button type="submit">Submit</Button>{' '}
+                </Form>
             )
         
 
