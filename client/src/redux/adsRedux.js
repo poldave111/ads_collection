@@ -78,9 +78,9 @@ export const getAllAds = () => {
           {
             method: 'put',
             body: payload,
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
+            // headers: {
+            //   'Content-Type': 'multipart/form-data'
+            // },
           },
         );
         const result = await res.json();

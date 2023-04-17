@@ -72,11 +72,12 @@ exports.delete = async (req, res) => {
 exports.put = async (req, res) => {
     try {
         const { id } = req.params;
+        const { title, content, date, price, location } = req.body; 
         const found = await ads.findById(id);
         const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
         const image = req.file.filename;
 
-        if(found) {
+        if(found && title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
             console.log('req.body!!!', req.body);
             const ad = {...req.body, image};
             await ads.updateOne({_id: id}, ad);
