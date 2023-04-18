@@ -56,45 +56,44 @@ function EditAd(props) {
     }, [editedAd]);
 
     return (
-        
-            editedAd === null ? <p>loading...</p> : ( 
-                <Form onSubmit={handleSubmit} ref={form}>
+        editedAd === null ? <p>loading...</p> : ( 
+            <div className="w-100 mx-auto">
+                 <Form className="mb-3" onSubmit={handleSubmit} ref={form}>
                     <h1>Id: {props.adId}</h1>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="title">Title:</Form.Label>
                         <Form.Control type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="content">Content:</Form.Label>
                         <Form.Control as="textarea" rows={3} id="content" name="content" value={content} onChange={(event) => setContent(event.target.value)} muted /><br />
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="date">Date:</Form.Label>
                         <Form.Control type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
                     </Form.Group>
                     
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="image">Image:</Form.Label>
                         <Form.Control type="file" id="image" name="image" /><br />
                     </Form.Group>
                     
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="price">Price:</Form.Label>
                         <Form.Control type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />
                     </Form.Group>
                     
-                    <Form.Label className="mb-3">
+                    <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="location">Location:</Form.Label>
                         <Form.Control type="text" id="location" name="location" value={location} onChange={(event) => setLocation(event.target.value)} /><br />
-                    </Form.Label><br />
-
-                    <Button type="submit">Submit</Button>{' '}
+                    </Form.Group><br />
                 </Form>
+                <Button type="submit" className="w-25 mx-auto">Submit</Button>{' '}
+            </div>
+               
             )
-        
-
     );
 }
 
