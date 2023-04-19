@@ -4,6 +4,7 @@ import { API_URL } from '../config';
 const initialState = {
   allAds: [],
   selectedAd: null,
+  error: null,
 };
 
 //selectors 
@@ -85,7 +86,8 @@ export const getAllAds = () => {
         );
         const result = await res.json();
         console.log('data from server', result);
-        dispatch(setSelectedAd(result));
+        result.error ?  dispatch(errorRequest({error: result.error})) :  dispatch(setSelectedAd(result));
+        //dispatch(setSelectedAd(result));
         //dispatch(endRequest());
       } catch(e) {
         dispatch(errorRequest({ error: e.message }));
@@ -97,11 +99,13 @@ export const getAllAds = () => {
 const adsReducer = (statePart = initialState, action) => {
     switch(action.type) {
         case SET_ADS:
-            return {...statePart, allAds: action.payload};
+            return {...statePart, allAds: action.payload, error: null};
 
         case SELECT_AD: 
-            return {...statePart, selectedAd: action.payload};
-            
+            return {...statePart, selectedAd: action.payload, error: null};
+          
+        case ERROR_REQUEST: 
+            return {...statePart, error: action.payload.error};
         default: 
         return statePart; 
     }

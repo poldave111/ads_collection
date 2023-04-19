@@ -74,32 +74,46 @@ exports.put = async (req, res) => {
         const { id } = req.params;
         const { title, content, date, price, location } = req.body; 
         const found = await ads.findById(id);
-        const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
-        
         console.log('___found', found);
-        console.log('___title', title);
-        console.log('___content', content); 
-        console.log('___date', date);
-        console.log('___price', price); 
-        console.log('___image', image);
-        console.log('___location', location);
-        console.log('___filetype', fileType);
-        console.log('___req.file', req.file);
-        if(found && title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
+        if(found) {
+            console.log('___title', title);
+            console.log('___content', content); 
+            console.log('___date', date);
+            console.log('___price', price); 
+            console.log('___location', location);
+            console.log('___req.file', req.file);
+
+            let image; 
+
             if(!req.file) {
-                const image = found.image;
+                image = found.image;
+            } else {
+                //const fileType = await getImageFileType(req.file);
+                const fileType = req.file.mimetype;
+                console.log('___filetype', fileType);
+                if(['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType)) {
+                    image = req.file.filename;
+                } else {
+                    res.status(400).json({error: 'Please provide filetype from one of above: png, jpg, gif'});
+                    return;
+                } 
             }
-            
-            console.log('req.body!!!', req.body);
-            const ad = {...req.body, image};
-            await ads.updateOne({_id: id}, ad);
-            res.json({message: 'ok'})
-        }else {
-            res.status(404).json({message: 'not found'});
+
+            if(title && content && date && price && location) {  
+                console.log('___image', image);   
+                console.log('req.body!!!', req.body);
+                const ad = {...req.body, image};
+                await ads.updateOne({_id: id}, ad);
+                res.json({message: 'ok'})
+            } else {
+                res.status(400).json({error: 'Please fill all the blanks'});
+            }
+        } else {
+            res.status(404).json({error: 'not found'});
         }
     } catch (err) {
         console.log('error krytyczny', err);
-        res.status(500).json({message: 'Błąd krytyczny.'});
+        res.status(500).json({error: 'Błąd krytyczny.'});
     }
 }
 

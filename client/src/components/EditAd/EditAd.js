@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, Modal } from "react-bootstrap";
 import styles from './EditAd.module.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ function EditAd(props) {
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState('');
     const [sellerId, setSellerId] = useState('');
+    const [show, setShow] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -27,8 +28,20 @@ function EditAd(props) {
         return state.ads.selectedAd;
     })
 
+    const error = useSelector(state => {
+        return state.ads.error;
+    })
+
+    useEffect(() => {
+        setShow(!show)
+    },[error])
+
+    const handleClose = () => setShow(false);
+    
+   
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log('handleSubmit from EditAd.js');
         // const payload = {
         //     title,
         //     content,
@@ -43,10 +56,10 @@ function EditAd(props) {
     }
 
     useEffect(() => {
-        if(editedAd) {
+        if (editedAd) {
             setTitle(editedAd.title);
             setContent(editedAd.content);
-            setDate(editedAd.date?.slice(0,10));
+            setDate(editedAd.date?.slice(0, 10));
             setImage(editedAd.image);
             setPrice(editedAd.price);
             setLocation(editedAd.location);
@@ -56,9 +69,20 @@ function EditAd(props) {
     }, [editedAd]);
 
     return (
-        editedAd === null ? <p>loading...</p> : ( 
+        editedAd === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-                 <Form className="mb-3" onSubmit={handleSubmit} ref={form}>
+            
+                <Modal show={show}>
+                    <Modal.Body>
+                        <p>Please fill all the necessary fields.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <Form className="mb-3" onSubmit={handleSubmit} ref={form}>
                     <h1>Id: {props.adId}</h1>
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="title">Title:</Form.Label>
@@ -74,26 +98,30 @@ function EditAd(props) {
                         <Form.Label htmlFor="date">Date:</Form.Label>
                         <Form.Control type="date" id="date" name="date" value={date} onChange={(event) => setDate(event.target.value)} /><br />
                     </Form.Group>
-                    
+
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="image">Image:</Form.Label>
                         <Form.Control type="file" id="image" name="image" /><br />
                     </Form.Group>
-                    
+
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="price">Price:</Form.Label>
                         <Form.Control type="number" id="price" name="price" value={price} onChange={(event) => setPrice(event.target.value)} /><br />
                     </Form.Group>
-                    
+
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="location">Location:</Form.Label>
                         <Form.Control type="text" id="location" name="location" value={location} onChange={(event) => setLocation(event.target.value)} /><br />
                     </Form.Group><br />
+                    {/* {error && <p>{handleShow}</p>} */}
+                    <div className="mx-auto w-25">
+                        <Button type="submit" className="mx-auto">Submit</Button>{' '}
+                    </div>
                 </Form>
-                <Button type="submit" className="w-25 mx-auto">Submit</Button>{' '}
+
             </div>
-               
-            )
+
+        )
     );
 }
 
