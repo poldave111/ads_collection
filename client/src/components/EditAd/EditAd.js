@@ -33,7 +33,10 @@ function EditAd(props) {
     })
 
     useEffect(() => {
-        setShow(!show)
+        if(error) {
+            setShow(show => show = true);
+        }
+        
     },[error])
 
     const handleClose = () => setShow(false);
