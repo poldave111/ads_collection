@@ -4,6 +4,7 @@ import styles from './EditAd.module.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdById, saveAdById } from '../../redux/adsRedux';
+import Header from "../Header/Header";
 //import { getAllAds } from "../../redux/adsRedux";
 
 function EditAd(props) {
@@ -74,7 +75,7 @@ function EditAd(props) {
     return (
         editedAd === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-            
+                <Header />
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>
