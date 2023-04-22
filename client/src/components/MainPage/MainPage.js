@@ -18,7 +18,7 @@ const  MainPage = () => {
         <Header />
         <div  className="d-flex justify-content-center align-items-center">
             <Row className="col-4 col-md-6">
-                {data.map(ad => <Col sm={4} className="text-center"><Ad key={data.id} ad={ad} content={ad.content} title={ad.title} /></Col>)} 
+                {data.map(ad => <Col sm={4} className="text-center"><Ad key={data.id} ad={ad} content={ad.content} title={ad.title} id={ad._id} /></Col>)} 
             </Row>
         </div>
             

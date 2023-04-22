@@ -5,7 +5,7 @@ import styles from './Ad.module.scss';
 import { IMAGES_URL } from '../../config';
 
 const  Ad = (props) => {
-
+    console.log('props ad', props.id)
     return (
         <Card className={styles.card}>
             <Container className={styles.container}>
@@ -16,7 +16,7 @@ const  Ad = (props) => {
                     <Card.Text className={styles.cardText}>
                         {props.content}
                     </Card.Text>
-                    <Link to="/adview"><Button variant="primary" size="lg">Go to ad</Button></Link>
+                    <Link to={`/adview/${props.id}`}><Button variant="primary" size="lg">Go to ad</Button></Link>
             </Card.Body>    
         </Card>
     )
