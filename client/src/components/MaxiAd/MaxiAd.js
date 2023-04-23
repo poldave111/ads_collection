@@ -4,12 +4,14 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styles from './MaxiAd.module.scss';
 import { IMAGES_URL } from '../../config';
-import { getAllAdsFromState } from "../../redux/adsRedux";
+import { getAd } from "../../redux/adsRedux";
 
 const  MaxiAd = (props) => {
     console.log('...props', props);
     const { id } = useParams(); 
-    const adsData = useSelector((state) => getAllAdsFromState(state).find(item => item._id === id));
+    const adsData = useSelector(state => getAd(state.ads.allAds, id));
+
+    console.log('adsData', adsData._id);
 
     return (
         <Card className={styles.card}>
@@ -21,7 +23,7 @@ const  MaxiAd = (props) => {
                     <Card.Text className={styles.cardText}>
                         {adsData.content}
                     </Card.Text>
-                    <Link to="/adview/"><Button variant="primary" size="lg">Go to add</Button></Link>
+                    <Link to={`/edit/${adsData._id}`}><Button variant="primary" size="lg">Go to add</Button></Link>
             </Card.Body>    
         </Card>
     )

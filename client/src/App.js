@@ -23,7 +23,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/edit" element={<EditAd adId={data[0]?._id} />} />
+        <Route path="/edit/:id" element={<EditAd />} />
         <Route path="/adview/:id" element={<MaxiAd />} />
         {/* <Route path="/adview/" element={<MaxiAd title={data[0]?.title} />} /> */}
       </Routes>

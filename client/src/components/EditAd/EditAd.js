@@ -2,12 +2,17 @@ import React, { useState, useRef } from 'react';
 import { Form, Col, Button, Modal } from "react-bootstrap";
 import styles from './EditAd.module.scss';
 import { useEffect } from 'react';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdById, saveAdById } from '../../redux/adsRedux';
+import { getAd } from '../../redux/adsRedux';
 import Header from "../Header/Header";
 //import { getAllAds } from "../../redux/adsRedux";
 
 function EditAd(props) {
+    const { id } = useParams(); 
+    const adsData = useSelector(state => getAd(state.ads.allAds, id));
+
     const form = useRef(null);
 
     const [title, setTitle] = useState('');
@@ -25,9 +30,9 @@ function EditAd(props) {
         dispatch(getAdById(props.adId));
     }, [props.adId]);
 
-    const editedAd = useSelector(state => {
-        return state.ads.selectedAd;
-    })
+    // const editedAd = useSelector(state => {
+    //     return state.ads.selectedAd;
+    // })
 
     const error = useSelector(state => {
         return state.ads.error;
@@ -60,20 +65,20 @@ function EditAd(props) {
     }
 
     useEffect(() => {
-        if (editedAd) {
-            setTitle(editedAd.title);
-            setContent(editedAd.content);
-            setDate(editedAd.date?.slice(0, 10));
-            setImage(editedAd.image);
-            setPrice(editedAd.price);
-            setLocation(editedAd.location);
-            setSellerId(editedAd.sellerId);
-            console.log(editedAd);
+        if (adsData) {
+            setTitle(adsData.title);
+            setContent(adsData.content);
+            setDate(adsData.date?.slice(0, 10));
+            setImage(adsData.image);
+            setPrice(adsData.price);
+            setLocation(adsData.location);
+            setSellerId(adsData.sellerId);
+            console.log(adsData);
         }
-    }, [editedAd]);
+    }, [adsData]);
 
     return (
-        editedAd === null ? <p>loading...</p> : (
+        adsData === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
                 <Header />
                 <Modal show={show}>
@@ -87,7 +92,7 @@ function EditAd(props) {
                     </Modal.Footer>
                 </Modal>
                 <Form className="mb-3" onSubmit={handleSubmit} ref={form}>
-                    <h1>Id: {props.adId}</h1>
+                    <h1>Id: {adsData.adId}</h1>
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="title">Title:</Form.Label>
                         <Form.Control type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
