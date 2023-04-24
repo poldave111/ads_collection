@@ -26,9 +26,7 @@ function EditAd(props) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAdById(props.adId));
-    }, [props.adId]);
+    
 
     // const editedAd = useSelector(state => {
     //     return state.ads.selectedAd;
@@ -127,9 +125,7 @@ function EditAd(props) {
                         <Button type="submit" className="mx-auto">Submit</Button>{' '}
                     </div>
                 </Form>
-
             </div>
-
         )
     );
 }
