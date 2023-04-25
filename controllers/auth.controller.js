@@ -32,11 +32,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { login, password } = req.body; 
-        if (login && typeof login === 'string' && password && typeof password === 'string' && req.file) {
-            const [, ext] = req.file.orignalname.splt('.');
-            if(ext !== 'jpg' && ext !== 'png' && ext !== 'jpeg') {
-                res.status(400).send({ message: 'Fle extension incorrect' });
-            }
+        if (login && typeof login === 'string' && password && typeof password === 'string') {
             const userWithLogin = await User.findOne({ login });
             if (!userWithLogin) {
                 res.status(400).send({ message: 'Login or password are incorrect' });

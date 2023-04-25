@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Form, Col, Button, Modal } from "react-bootstrap";
-import styles from './EditAd.module.scss';
+import styles from './AddPost.module.scss';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { getAd } from '../../redux/adsRedux';
 import Header from "../Header/Header";
 //import { getAllAds } from "../../redux/adsRedux";
 
-function EditAd(props) {
+function AddPost(props) {
     const { id } = useParams(); 
     const adsData = useSelector(state => getAd(state.ads.allAds, id));
 
@@ -123,6 +123,6 @@ function EditAd(props) {
     );
 }
 
-export default EditAd;
+export default AddPost;
 
 

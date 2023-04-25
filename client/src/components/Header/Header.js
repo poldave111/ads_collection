@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
+    const login = useSelector((state) => {
+        return state.users.login
+    });
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -10,10 +14,16 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#about"><Link to="/edit">About</Link></Nav.Link>
-            <Nav.Link href="#services">Services</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link href="#register"><Link to="/register">Register</Link></Nav.Link>
+            { login ? (
+                <Nav.Link href="#register"><Link to="/logout">Logout</Link></Nav.Link>
+            ) : (
+                <Nav.Link href="#register"><Link to="/login">Login</Link></Nav.Link>
+            )}
+            <Nav.Link href="#add"><Link to="/add">Add</Link></Nav.Link>
+            <Nav.Link href="#edit"><Link to="/edit/:id">Edit</Link></Nav.Link>
+            <Nav.Link href="#aboutus"><Link to="/aboutus">About Us</Link></Nav.Link>
+            <Nav.Link href="#contact"><Link to="/contact">Contact</Link></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

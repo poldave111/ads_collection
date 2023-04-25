@@ -9,6 +9,7 @@ const  MainPage = () => {
     const data = useSelector((state) => {
         return state.ads.allAds;
     });
+
     console.log('data MainPage.js', data);
     return (
         <ThemeProvider 

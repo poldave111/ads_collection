@@ -8,8 +8,8 @@ const initialState = {
 };
 
 //selectors 
-export const getAd = (state, id) => state.find(item => item._id === id);
-
+//export const getAd = (state, id) => state.find(item => item._id === id);
+export const getAd = state => state.selectedAd;
 
 //actions
 const createActionName = actionName => `app/ads/${actionName}`;
