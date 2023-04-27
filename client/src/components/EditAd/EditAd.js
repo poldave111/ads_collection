@@ -11,7 +11,10 @@ import Header from "../Header/Header";
 
 function EditAd(props) {
     const { id } = useParams(); 
-    const adsData = useSelector(state => getAd(state.ads.allAds, id));
+    const adsData = useSelector(state => getAd(state));
+    // const links = {
+    //     link: "/logout", 
+    // }
 
     const form = useRef(null);
 
@@ -23,7 +26,15 @@ function EditAd(props) {
     const [location, setLocation] = useState('');
     const [sellerId, setSellerId] = useState('');
     const [show, setShow] = useState(false);
-
+    const [links, setLinks] = useState([
+        { label: "Logout", path: "/logout", logged: true},
+        { label: "Add", path: "/add", logged: true},
+        { label: "About Us", path: "/aboutus", logged: true}, 
+        { label: "Contact", path: "/contact", logged: true}, 
+        { label: "Register", path: "/register", logged: false}, 
+        { label: "Login", path: "/login", logged: false}
+    ]);
+    console.log('links1', links);
     const dispatch = useDispatch();
 
     const error = useSelector(state => {
@@ -72,7 +83,7 @@ function EditAd(props) {
     return (
         adsData === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-                <Header />
+                <Header links={links}/>
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>

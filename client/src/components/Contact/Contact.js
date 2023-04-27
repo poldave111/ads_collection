@@ -21,7 +21,7 @@ const Contact = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Container>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>

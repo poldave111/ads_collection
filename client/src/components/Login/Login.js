@@ -4,6 +4,7 @@ import { API_URL } from '../../config';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/usersRedux';
+import Header from '../Header/Header';
 
 const Login = () => {
     const [login, setLogin] = useState('');
@@ -43,7 +44,13 @@ const Login = () => {
     }
 
     return (
-        <Form className="col-12 col-sm-3 mx-auto" onSubmit={handleSubmit}>
+        <>
+           {/* {status === "success" ? (
+                <Header login={login} />
+            ) : (
+                <Header />
+            )} */}
+            <Form className="col-12 col-sm-3 mx-auto" onSubmit={handleSubmit}>
             <h1 className="my-4">Login</h1>
 
             {status === "success" && (
@@ -83,6 +90,8 @@ const Login = () => {
                 Sign in
             </Button>
         </Form>
+        </>
+        
     )
 }
 

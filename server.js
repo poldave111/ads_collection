@@ -33,9 +33,6 @@ db.once('open', () => {
     );
   }
 
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use('/api/', ads);
-  app.use('/api/auth', auth);
   app.use(session({
     secret: process.env.SESSION_SECRET || 'abc',
     store: MongoStore.create(mongoose.connection),
@@ -46,6 +43,10 @@ db.once('open', () => {
       }
     }
   ));
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/api/', ads);
+  app.use('/api/auth', auth);
+
   app.use((req, res) => {
     res.status(404).json({message: 'error 404 - not found'});
   });

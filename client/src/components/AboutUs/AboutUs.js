@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 const AboutUs = () => {
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <Container>
       <Row>
         <Col md={6}>

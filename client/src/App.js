@@ -38,7 +38,7 @@ const App = () => {
         <Route Path="/add" element={<AddPost />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
         {/* <Route path="/adview/" element={<MaxiAd title={data[0]?.title} />} /> */}
       </Routes>
     </>

@@ -72,7 +72,7 @@ function AddPost(props) {
     return (
         adsData === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-                <Header />
+                {/* <Header /> */}
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>
