@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Form, Col, Button, Card, Container, Spinner  } from "react-bootstrap";
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -17,18 +17,26 @@ const  MaxiAd = (props) => {
     useEffect(() => {
         dispatch(getAdById(id));
     },[]);
+    const [links, setLinks] = useState([
+        { label: "Logout", path: "/logout", logged: true},
+        { label: "Add", path: "/add", logged: true},
+        { label: "About Us", path: "/aboutus", logged: true}, 
+        { label: "Contact", path: "/contact", logged: true}, 
+        { label: "Register", path: "/register", logged: false}, 
+        { label: "Login", path: "/login", logged: false}
+    ]);
     //console.log('adsData', adsData._id);
 
     return (
         <>
-            {!adsData && (
+        {!adsData && (
             <Spinner animation="border" role="status" className="d-block mx-auto">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
         )}
         {adsData && (
             <>
-            <Header />
+            <Header links={links} />
             <Card className={styles.card}>
                 <Container className={styles.container}>
                     <Card.Img variant="top" className={`${styles.cardImg} img-fluid w-100 h-100 text-center`} src={`${IMAGES_URL}/${adsData.image}`} />

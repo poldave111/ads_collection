@@ -9,6 +9,14 @@ function Register() {
     const [phone, setPhone] = useState('');
     const [avatar, setAvatar] = useState(null);
     const [status, setStatus] = useState(null); // null, 'loading', 'success' 'serverError', 'clientError', 'loginError'
+    const [links, setLinks] = useState([
+        { label: "Logout", path: "/logout", logged: true},
+        { label: "Add", path: "/add", logged: true},
+        { label: "About Us", path: "/aboutus", logged: true}, 
+        { label: "Contact", path: "/contact", logged: true}, 
+        { label: "Register", path: "/register", logged: false}, 
+        { label: "Login", path: "/login", logged: false}
+    ]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -46,7 +54,7 @@ function Register() {
 
     return (
         <>
-            <Header />
+            <Header links={links}/>
             <Form className="col-12 col-sm-3 mx-auto" onSubmit={handleSubmit}>
             <h1 className="my-4">Sign up</h1>
             {status === "success" && (

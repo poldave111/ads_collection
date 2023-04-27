@@ -10,6 +10,14 @@ const Login = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState(null); // null, 'loading', 'success', 'serverError', 'clientError'
+    const [links, setLinks] = useState([
+        { label: "Logout", path: "/logout", logged: true},
+        { label: "Add", path: "/add", logged: true},
+        { label: "About Us", path: "/aboutus", logged: true}, 
+        { label: "Contact", path: "/contact", logged: true}, 
+        { label: "Register", path: "/register", logged: false}, 
+        { label: "Login", path: "/login", logged: false}
+    ]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -45,11 +53,11 @@ const Login = () => {
 
     return (
         <>
-           {/* {status === "success" ? (
-                <Header login={login} />
+           {status === "success" ? (
+                <Header login={login} links={links} />
             ) : (
                 <Header />
-            )} */}
+            )}
             <Form className="col-12 col-sm-3 mx-auto" onSubmit={handleSubmit}>
             <h1 className="my-4">Login</h1>
 

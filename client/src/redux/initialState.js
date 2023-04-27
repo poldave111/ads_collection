@@ -54,7 +54,8 @@ const initialState = {
         avatar: 'https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg',
         phone: '111111111'
     },
-    ]
+    ],
+    users: null
   
   };
   

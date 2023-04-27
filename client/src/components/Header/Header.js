@@ -13,10 +13,14 @@ function Header(props) {
     //   {}, 
 
     // ])
-    console.log('links', props);
-    const login = useSelector((state) => {
-        return state.users.login
-    });
+  console.log('links', props.links);
+  props.links.map(link => console.log(link.logged));
+  
+  const login = useSelector((state) => {
+    return state.users.login
+  });
+  console.log(login);
+  
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>

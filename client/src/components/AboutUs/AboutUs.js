@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import Header from '../Header/Header';
 
 const AboutUs = () => {
+  const [links, setLinks] = useState([
+    { label: "Logout", path: "/logout", logged: true},
+    { label: "Add", path: "/add", logged: true},
+    { label: "Contact", path: "/contact", logged: true}, 
+    { label: "Register", path: "/register", logged: false}, 
+]);
+
   return (
     <>
-    {/* <Header /> */}
+    <Header links={links}/>
     <Container>
       <Row>
         <Col md={6}>

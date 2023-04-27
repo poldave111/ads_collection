@@ -23,6 +23,14 @@ function AddPost(props) {
     const [location, setLocation] = useState('');
     const [sellerId, setSellerId] = useState('');
     const [show, setShow] = useState(false);
+    const [links, setLinks] = useState([
+        { label: "Logout", path: "/logout", logged: true},
+        { label: "Add", path: "/add", logged: true},
+        { label: "About Us", path: "/aboutus", logged: true}, 
+        { label: "Contact", path: "/contact", logged: true}, 
+        { label: "Register", path: "/register", logged: false}, 
+        { label: "Login", path: "/login", logged: false}
+    ]);
 
     const dispatch = useDispatch();
 
@@ -70,6 +78,8 @@ function AddPost(props) {
     }, [adsData]);
 
     return (
+        <>
+        <Header links={links}/>
         adsData === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
                 {/* <Header /> */}
@@ -120,6 +130,7 @@ function AddPost(props) {
                 </Form>
             </div>
         )
+        </>
     );
 }
 

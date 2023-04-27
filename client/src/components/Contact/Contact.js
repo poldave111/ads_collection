@@ -8,6 +8,14 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [links, setLinks] = useState([
+    { label: "Logout", path: "/logout", logged: true},
+    { label: "Add", path: "/add", logged: true},
+    { label: "About Us", path: "/aboutus", logged: true}, 
+    { label: "Contact", path: "/contact", logged: true}, 
+    { label: "Register", path: "/register", logged: false}, 
+    { label: "Login", path: "/login", logged: false}
+  ]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,7 +29,7 @@ const Contact = () => {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header links={links}/>
       <Container>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
