@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { checkLogin } from '../../redux/usersRedux';
 
 function Header(props) {
     // const [links, setLinks] = useState([
@@ -16,11 +17,25 @@ function Header(props) {
   console.log('links', props.links);
   props.links.map(link => console.log(link.logged));
   
+  const dispatch = useDispatch() 
+  useEffect(() => {
+    dispatch(checkLogin());
+  }, [dispatch]);
+
+
   const login = useSelector((state) => {
     return state.users.login
   });
+
+  console.log('login', login);
+
+  const error = useSelector((state) => {
+    return state.users.error
+  });
+
+
   console.log(login);
-  
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
