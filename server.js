@@ -24,14 +24,14 @@ db.once('open', () => {
     crossOriginResourcePolicy: false,
   }));
 
-  if(process.env.NODE_ENV !== 'production') {
+  //if(process.env.NODE_ENV !== 'production') {
     app.use(
       cors({
         origin: ['http://localhost:3000'],
         credentials: true,
       })
     );
-  }
+  //}
 
   app.use(session({
     secret: process.env.SESSION_SECRET || 'abc',
@@ -44,6 +44,7 @@ db.once('open', () => {
     }
   ));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'client/build')));
   app.use('/api/', ads);
   app.use('/api/auth', auth);
 

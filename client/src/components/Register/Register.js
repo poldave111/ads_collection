@@ -54,7 +54,6 @@ function Register() {
 
     return (
         <>
-            <Header links={links}/>
             <Form className="col-12 col-sm-3 mx-auto" onSubmit={handleSubmit}>
             <h1 className="my-4">Sign up</h1>
             {status === "success" && (

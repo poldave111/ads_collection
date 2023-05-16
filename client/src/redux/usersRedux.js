@@ -19,15 +19,21 @@ export const checkLogin = () => async (dispatch) => {
         const res = await fetch(
             `${API_URL}/auth/user`
             );
-        console.log('data', data);
         const data = await res.json();
-        dispatch({
-            type: 'LOGIN_CHECK_SUCCESS',
-            payload: data,
-        });
+        if(data.login) {
+            dispatch({
+                type: 'LOGIN_CHECK_SUCCESS',
+                payload: data,
+            });
+        } else {
+            dispatch({
+                type: 'USER_CHECK_FAIL', 
+                payload: data.message,
+            });
+        }
     } catch (err) {
         dispatch({
-            type: 'LOGIN_CHECK_FAIL', 
+            type: 'USER_CHECK_FAIL', 
             payload: err.message,
         });
     }
@@ -42,19 +48,23 @@ export const logIn = payload => ({
 const usersReducer = (statePart = [], action) => {
     switch(action.type) {
         case LOG_IN:
-            return action.payload;
+            return {
+                ...statePart, 
+                login: action.payload,
+                error: null, // user was not logged so null
+            };
         // case ADD_COLUMN:
         //     return [...statePart, { ...action.payload, id: shortid()}];
         case 'LOGIN_CHECK_SUCCESS': 
             return {
                 ...statePart, 
                 login: action.payload,
-                error: null,
+                error: null, // user was not logged so null
             };
-        case 'LOGIN_CHECK_FAIL':
+        case 'USER_CHECK_FAIL':
             return {
                 ...statePart,
-                user: null,
+                login: null, // error so user kicked
                 error: action.payload,
             }
         default: 

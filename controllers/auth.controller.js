@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
 }
 
 exports.getUser = async (req, res) => {
-    res.send('I\'m logged in');
+    res.json({login: req.session.login});
 }
 
 exports.delete = async (req, res) => {

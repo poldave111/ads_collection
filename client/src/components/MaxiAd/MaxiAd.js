@@ -36,7 +36,6 @@ const  MaxiAd = (props) => {
         )}
         {adsData && (
             <>
-            <Header links={links} />
             <Card className={styles.card}>
                 <Container className={styles.container}>
                     <Card.Img variant="top" className={`${styles.cardImg} img-fluid w-100 h-100 text-center`} src={`${IMAGES_URL}/${adsData.image}`} />

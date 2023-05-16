@@ -12,7 +12,6 @@ const AboutUs = () => {
 
   return (
     <>
-    <Header links={links}/>
     <Container>
       <Row>
         <Col md={6}>

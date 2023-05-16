@@ -34,12 +34,19 @@ exports.search = async (req, res) => {
 exports.post = async (req, res) => {
     try {
         const { title, content, date, price, location } = req.body; 
-        const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
+        const fileType = req.file.mimetype;
         console.log(req.body);
         console.log('fileType', fileType);
         const image = req.file.filename;
         console.log('-----------------image-------------------', image);
-        if(title && content && date && req.file && ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && price && location) {
+        if(
+            title && 
+            content && 
+            date && 
+            req.file && 
+            ['image/png', 'image/jpeg', 'image/gif', 'image/jpg'].includes(fileType) && 
+            price && 
+            location) {
             const ad = new ads({title, content, date, image, price, location}); // new ads({....}) tworzenie modelu w bazie
             await ad.save();
             res.json(ad);

@@ -81,9 +81,8 @@ function EditAd(props) {
     }, [adsData]);
 
     return (
-        adsData === null ? <p>loading...</p> : (
+        adsData ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-                <Header links={links}/>
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>

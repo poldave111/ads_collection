@@ -4,14 +4,14 @@ import styles from './AddPost.module.scss';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdById, saveAdById } from '../../redux/adsRedux';
+import { saveAd } from '../../redux/adsRedux';
 import { getAd } from '../../redux/adsRedux';
 import Header from "../Header/Header";
 //import { getAllAds } from "../../redux/adsRedux";
 
 function AddPost(props) {
     const { id } = useParams(); 
-    const adsData = useSelector(state => getAd(state.ads.allAds, id));
+    //const adsData = useSelector(state => getAd(state.ads.allAds, id));
 
     const form = useRef(null);
 
@@ -38,6 +38,10 @@ function AddPost(props) {
         return state.ads.error;
     })
 
+    const message = useSelector(state => {
+        return state.ads.message
+    })
+
     useEffect(() => {
         if(error) {
             setShow(show => show = true);
@@ -50,7 +54,7 @@ function AddPost(props) {
    
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('handleSubmit from EditAd.js');
+        console.log('handleSubmit from AddPost.js');
         // const payload = {
         //     title,
         //     content,
@@ -61,28 +65,24 @@ function AddPost(props) {
         //     sellerId
         // }
         const payload = new FormData(form.current); // weź cały formularz tak jak jest i coś tam z polami zrób. 
-        dispatch(saveAdById(props.adId, payload));
+        dispatch(saveAd(payload));
     }
 
     useEffect(() => {
-        if (adsData) {
-            setTitle(adsData.title);
-            setContent(adsData.content);
-            setDate(adsData.date?.slice(0, 10));
-            setImage(adsData.image);
-            setPrice(adsData.price);
-            setLocation(adsData.location);
-            setSellerId(adsData.sellerId);
-            console.log(adsData);
+        if(message) {
+            setContent('');
+            setDate('');
+            setImage('');
+            setLocation('');
+            setPrice('');
+            setTitle('');  
         }
-    }, [adsData]);
+     
+    }, [message])
 
     return (
         <>
-        <Header links={links}/>
-        adsData === null ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
-                {/* <Header /> */}
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>
@@ -128,8 +128,8 @@ function AddPost(props) {
                         <Button type="submit" className="mx-auto">Submit</Button>{' '}
                     </div>
                 </Form>
+                {message && <h1>{message}</h1>}
             </div>
-        )
         </>
     );
 }

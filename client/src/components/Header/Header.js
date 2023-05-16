@@ -1,21 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { checkLogin } from '../../redux/usersRedux';
+const commonLinks = [
+  { label: "Add", path: "/add", },
+  { label: "About Us", path: "/aboutus", }, 
+  { label: "Contact", path: "/contact", }, 
+  { label: "Register", path: "/register", }, 
+]
 
 function Header(props) {
-    // const [links, setLinks] = useState([
-    //   {label: , path: "/"},
-    //   {},
-    //   {},
-    //   {},
-    //   {}, 
-    //   {}, 
+  const [links, setLinks] = useState([
 
-    // ])
-  console.log('links', props.links);
-  props.links.map(link => console.log(link.logged));
+  ]);
+
+  const login = useSelector((state) => {
+    return state.users.login
+  });
+
+  useEffect(() => {
+    if(login != null) {
+        setLinks(
+          [
+              ...commonLinks,
+              { label: "Logout", path: "/logout", }  
+          ])
+    } else {
+        setLinks([
+            ...commonLinks, 
+            { label: "Login", path: "/login", }
+        ])
+           
+    }
+},[login])
   
   const dispatch = useDispatch() 
   useEffect(() => {
@@ -23,11 +41,7 @@ function Header(props) {
   }, [dispatch]);
 
 
-  const login = useSelector((state) => {
-    return state.users.login
-  });
-
-  console.log('login', login);
+  //console.log('login', login);
 
   const error = useSelector((state) => {
     return state.users.error
@@ -44,10 +58,8 @@ function Header(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {
-              props.links.map(link => link.logged === login ? (
-                <Nav.Link href="#logout"><Link to={link.path}>{link.label}</Link></Nav.Link>
-              ) : (
-                <Nav.Link href="#logout"><Link to={link.path}>{link.label}</Link></Nav.Link>
+              links.map(link => (
+                <Link key={link.label} to={link.path}>{link.label}</Link>
               ))
             }
             {/* { login ? (
@@ -67,7 +79,7 @@ function Header(props) {
                 
             )} */}
             
-            <Nav.Link href="#edit"><Link to="/edit/:id">Edit</Link></Nav.Link>
+            {/* <Nav.Link href="#edit"><Link to="/edit/:id">Edit</Link></Nav.Link> */}
             
             
           </Nav>

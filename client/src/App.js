@@ -12,6 +12,7 @@ import Contact from "./components/Contact/Contact";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Search from "./components/Search/Search";
 import NotFound from "./components/NotFound/NotFound";
+import Header from "./components/Header/Header";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,17 +29,18 @@ const App = () => {
 
   return (
     <>
+      <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/edit/:id" element={<EditAd />} />
         <Route path="/adview/:id" element={<MaxiAd />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/search/:searchPhrase" element={<Search />} />
+        {/* <Route path="/search/:searchPhrase" element={<Search />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route Path="/add" element={<AddPost />} />
+        <Route path="/add" element={<AddPost />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
         {/* <Route path="/adview/" element={<MaxiAd title={data[0]?.title} />} /> */}
       </Routes>
     </>
