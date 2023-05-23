@@ -4,8 +4,7 @@ import styles from './EditAd.module.scss';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdById, saveAdById } from '../../redux/adsRedux';
-import { getAd } from '../../redux/adsRedux';
+import { getAdById, saveAdById, getAd } from '../../redux/adsRedux';
 import Header from "../Header/Header";
 //import { getAllAds } from "../../redux/adsRedux";
 
@@ -48,6 +47,10 @@ function EditAd(props) {
         
     },[error])
 
+    useEffect(() => {
+        dispatch(getAdById(id));
+    },[]);
+
     const handleClose = () => setShow(false);
     
    
@@ -81,7 +84,7 @@ function EditAd(props) {
     }, [adsData]);
 
     return (
-        adsData ? <p>loading...</p> : (
+        !adsData ? <p>loading...</p> : (
             <div className="w-100 mx-auto">
                 <Modal show={show}>
                     <Modal.Body>

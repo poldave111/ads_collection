@@ -29,6 +29,7 @@ const Contact = () => {
 
   return (
     <>
+      <Header links={links}/>
       <Container>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>

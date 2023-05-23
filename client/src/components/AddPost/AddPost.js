@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { Form, Col, Button, Modal } from "react-bootstrap";
 import styles from './AddPost.module.scss';
+import { checkLogin } from '../../redux/usersRedux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAd } from '../../redux/adsRedux';
 import { getAd } from '../../redux/adsRedux';
@@ -32,15 +34,27 @@ function AddPost(props) {
         { label: "Login", path: "/login", logged: false}
     ]);
 
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const error = useSelector(state => {
         return state.ads.error;
     })
 
+    const login = useSelector((state) => {
+        return state.users.login
+    });
+
     const message = useSelector(state => {
         return state.ads.message
     })
+
+    useEffect(() => {
+        if(login != null) {
+           navigate("/login");  
+        }
+    },[login])
 
     useEffect(() => {
         if(error) {

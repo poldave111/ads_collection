@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import styles from './Header.module.scss';
 import { checkLogin } from '../../redux/usersRedux';
 const commonLinks = [
   { label: "Add", path: "/add", },
@@ -53,13 +54,13 @@ function Header(props) {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#"><Link to="/">My website</Link></Navbar.Brand>
+        <Navbar.Brand href="#"><Link to="/" className={styles.title}>My website</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {
               links.map(link => (
-                <Link key={link.label} to={link.path}>{link.label}</Link>
+                <Link key={link.label} to={link.path} className={styles.link }>{link.label}</Link>
               ))
             }
             {/* { login ? (

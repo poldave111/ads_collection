@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/edit/:id" element={<EditAd />} />
         <Route path="/adview/:id" element={<MaxiAd />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/search/:searchPhrase" element={<Search />} /> */}
+        <Route path="/search/:searchPhrase" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<AddPost />} />
         <Route path="/contact" element={<Contact />} />
