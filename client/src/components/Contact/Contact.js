@@ -29,11 +29,10 @@ const Contact = () => {
 
   return (
     <>
-      <Header links={links}/>
       <Container>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <h2>Contact Us</h2>
+          <h2 className="my-4">Contact Us</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formName">
               <Form.Label>Name</Form.Label>
@@ -69,7 +68,7 @@ const Contact = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button className="my-4" variant="primary" type="submit">
               Submit
             </Button>
           </Form>

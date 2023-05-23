@@ -46,12 +46,14 @@ function AddPost(props) {
         return state.users.login
     });
 
+    console.log('login in addpost', login);
+
     const message = useSelector(state => {
         return state.ads.message
     })
 
     useEffect(() => {
-        if(login != null) {
+        if(login == null) {
            navigate("/login");  
         }
     },[login])
@@ -60,7 +62,6 @@ function AddPost(props) {
         if(error) {
             setShow(show => show = true);
         }
-        
     },[error])
 
     const handleClose = () => setShow(false);
@@ -96,7 +97,7 @@ function AddPost(props) {
 
     return (
         <>
-            <div className="w-100 mx-auto">
+            <div className="w-100 mx-auto my-4">
                 <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>

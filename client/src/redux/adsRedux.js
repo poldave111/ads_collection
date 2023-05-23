@@ -24,6 +24,28 @@ export const setAds = payload => ({type: SET_ADS, payload });
 export const setSelectedAd = payload => ({type: SELECT_AD, payload });
 export const errorRequest = payload => ({type: ERROR_REQUEST, payload });
 
+export const deleteAD = (id) => {
+  console.log('adsredux id', id);
+  return async dispatch => {
+    try {
+      let res = await fetch(
+        `${API_URL}/ads/${id}`,
+        {
+          method: 'delete',
+        },
+      );
+      const result = await res.json();
+      console.log('data from server', result);
+      dispatch(getAllAds(result));
+      //dispatch(endRequest());
+
+    } catch(e) {
+      dispatch(errorRequest({ error: e.message }));
+    }
+
+  };
+}
+
 export const getAllAds = () => {
     return async dispatch => {
   
@@ -90,7 +112,13 @@ export const getAllAds = () => {
         );
         const result = await res.json();
         console.log('data from server', result);
-        result.error ?  dispatch(errorRequest({error: result.error})) :  dispatch(setSelectedAd(result));
+        if(result.error) {
+          dispatch(errorRequest({error: result.error}))
+        } else {
+          dispatch(setSelectedAd(result));
+          dispatch(getAllAds());
+        }
+     
         //dispatch(setSelectedAd(result));
         //dispatch(endRequest());
       } catch(e) {
@@ -118,7 +146,13 @@ export const getAllAds = () => {
         );
         const result = await res.json();
         console.log('data from server', result);
-        result.error ?  dispatch(errorRequest({error: result.error})) :  dispatch(setMessageSuccess("Ogłoszenie zostało dodane."));
+        if(result.error) {
+          dispatch(errorRequest({error: result.error}))
+        } else {
+          dispatch(setMessageSuccess("Ogłoszenie zostało dodane."));
+          dispatch(getAllAds());
+        }
+     
         //dispatch(setSelectedAd(result));
         //dispatch(endRequest());
       } catch(e) {

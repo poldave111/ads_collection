@@ -67,7 +67,7 @@ function EditAd(props) {
         //     sellerId
         // }
         const payload = new FormData(form.current); // weź cały formularz tak jak jest i coś tam z polami zrób. 
-        dispatch(saveAdById(props.adId, payload));
+        dispatch(saveAdById(id, payload));
     }
 
     useEffect(() => {

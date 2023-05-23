@@ -2,16 +2,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Form, Col, Button, Card, Container, Spinner  } from "react-bootstrap";
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import styles from './MaxiAd.module.scss';
 import { IMAGES_URL } from '../../config';
-import { getAd, getAdById } from "../../redux/adsRedux";
+import { deleteAD, getAd, getAdById } from "../../redux/adsRedux";
 
 const  MaxiAd = (props) => {
     console.log('...props', props);
     const { id } = useParams(); 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     //const adsData = useSelector(state => getAd(state.ads.allAds, id));
     const adsData = useSelector(getAd);
     useEffect(() => {
@@ -26,6 +28,11 @@ const  MaxiAd = (props) => {
         { label: "Login", path: "/login", logged: false}
     ]);
     //console.log('adsData', adsData._id);
+
+    const deleteAd = () => {
+        dispatch(deleteAD(id));
+        navigate("/");
+    }
 
     return (
         <>
@@ -46,6 +53,7 @@ const  MaxiAd = (props) => {
                             {adsData.content}
                         </Card.Text>
                         <Link to={`/edit/${adsData._id}`}><Button variant="primary" size="lg">Go to add</Button></Link>
+                        <Button variant="primary" size="lg" onClick={deleteAd}>Delete</Button>
                 </Card.Body>    
             </Card>
             </>

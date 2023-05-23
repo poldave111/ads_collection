@@ -13,7 +13,9 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log('server id____', id);
         const found = await ads.findById(id);
+        console.log('server id___2', id);
         if (found) {
             console.log(found);
             res.json(found.toObject());
@@ -78,8 +80,11 @@ exports.post = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
+        console.log('whole req params___', req.params);
         const { id } = req.params;
+        console.log('server_delete_id___', JSON.stringify(id));
         const found = await ads.findById(id);
+        console.log('server_delete_id___2', id);
         if (found) {
             await ads.deleteOne({ _id: id }); //  await Test.deleteOne({ _id: entry._id });
             res.json({ message: 'ok' });
@@ -97,7 +102,9 @@ exports.put = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, content, date, price, location } = req.body;
+        console.log('server_put_id___', id);
         const found = await ads.findById(id);
+        console.log('server_put_id___', id);
         console.log('___found', found);
         if (found) {
             console.log('___title', title);

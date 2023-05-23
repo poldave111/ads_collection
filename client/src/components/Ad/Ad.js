@@ -8,7 +8,7 @@ const Ad = (props) => {
     
     console.log('props ad', props.id)
     return (
-        <Card className={styles.card}>
+        <Card className={`${styles.card} my-4 mx-4 me-4`}>
             <Container className={styles.container}>
                 <Card.Img variant="top" className={`${styles.cardImg} img-fluid w-100 h-100 text-center`} src={`${IMAGES_URL}/${props.ad.image}`} />
             </Container>
