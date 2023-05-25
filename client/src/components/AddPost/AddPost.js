@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveAd } from '../../redux/adsRedux';
 import { getAd } from '../../redux/adsRedux';
 import Header from "../Header/Header";
+import AddPostModal from "./AddPostModal";
 //import { getAllAds } from "../../redux/adsRedux";
 
 function AddPost(props) {
@@ -143,7 +144,8 @@ function AddPost(props) {
                         <Button type="submit" className="mx-auto">Submit</Button>{' '}
                     </div>
                 </Form>
-                {message && <h1>{message}</h1>}
+                
+                {message && <AddPostModal show={true} />}
             </div>
         </>
     );
