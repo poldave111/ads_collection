@@ -5,9 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 function AddPostModal(props) {
   const [show, setShow] = useState(props.show);
 
- 
+  // useEffect(() => {
+  //   setShow(!show);
+  // }, [show]);
+
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <>
