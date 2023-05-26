@@ -3,12 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function AddPostModal(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(props.show);
 
-  useEffect(() => {
-    setShow(props.show);
-  }, [props.show]);
-
+ 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -24,8 +21,7 @@ function AddPostModal(props) {
           <Modal.Title>Modal title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
+          {props.content}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

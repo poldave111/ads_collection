@@ -99,7 +99,8 @@ function AddPost(props) {
     return (
         <>
             <div className="w-100 mx-auto my-4">
-                <Modal show={show}>
+                <AddPostModal show={!!error} content={"Please fill all the necessary fields"} />
+                {/* <Modal show={show}>
                     <Modal.Body>
                         <p>Please fill all the necessary fields.</p>
                     </Modal.Body>
@@ -108,7 +109,7 @@ function AddPost(props) {
                             Close
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
                 <Form className="mb-3" onSubmit={handleSubmit} ref={form}>
                     <Form.Group className="mb-3 w-25 mx-auto">
                         <Form.Label htmlFor="title">Title:</Form.Label>
@@ -145,7 +146,7 @@ function AddPost(props) {
                     </div>
                 </Form>
                 
-                {message && <AddPostModal show={true} />}
+                <AddPostModal show={!!message} content={"Post Added"}/>
             </div>
         </>
     );
