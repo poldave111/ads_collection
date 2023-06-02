@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setMessageSuccess } from '../../redux/adsRedux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function AddPostModal(props) {
   const [show, setShow] = useState(props.show);
 
-  // useEffect(() => {
-  //   setShow(!show);
-  // }, [show]);
+  const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
+  useEffect(() => {
+    setShow(props.show);
+  }, [props.show]);
+
+  const handleClose = () => {
+    setShow(false);
+    dispatch(setMessageSuccess(null));
+
+  }
+
+
 
   return (
     <>

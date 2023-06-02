@@ -141,12 +141,14 @@ function AddPost(props) {
                         <Form.Control type="text" id="location" name="location" value={location} onChange={(event) => setLocation(event.target.value)} /><br />
                     </Form.Group><br />
                     {/* {error && <p>{handleShow}</p>} */}
+                    
                     <div className="mx-auto w-25">
                         <Button type="submit" className="mx-auto">Submit</Button>{' '}
                     </div>
+                    <AddPostModal show={!!message} content={"Post Added"}/>
                 </Form>
                 
-                <AddPostModal show={!!message} content={"Post Added"}/>
+                
             </div>
         </>
     );

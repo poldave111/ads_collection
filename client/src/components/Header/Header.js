@@ -54,7 +54,7 @@ function Header(props) {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#"><Link to="/" className={styles.title}>My website</Link></Navbar.Brand>
+        <Navbar.Brand href="#"><Link to="/" className={styles.title}>Ads collection</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

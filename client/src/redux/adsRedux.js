@@ -151,6 +151,9 @@ export const getAllAds = () => {
         } else {
           dispatch(setMessageSuccess("Ogłoszenie zostało dodane."));
           dispatch(getAllAds());
+          setTimeout(() => {
+            dispatch(setMessageSuccess(null));
+          },2000);
         }
      
         //dispatch(setSelectedAd(result));

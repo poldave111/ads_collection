@@ -17,7 +17,7 @@ const Ad = (props) => {
                 <Card.Text className={styles.cardText}>
                     {props.content}
                 </Card.Text>
-                <Link to={`/adview/${props.id}`}><Button variant="primary" size="lg">Go to ad</Button></Link>
+                <Link to={`/adview/${props.id}`}><Button variant="primary" size="lg">View ad</Button></Link>
             </Card.Body>
         </Card>
     )

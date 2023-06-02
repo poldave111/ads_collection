@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Form, Col, Button, Card, Container, Spinner  } from "react-bootstrap";
+import { Form, Col, Button, Card, Container, Spinner, ListGroup  } from "react-bootstrap";
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -43,17 +43,21 @@ const  MaxiAd = (props) => {
         )}
         {adsData && (
             <>
-            <Card className={styles.card}>
-                <Container className={styles.container}>
-                    <Card.Img variant="top" className={`${styles.cardImg} img-fluid w-100 h-100 text-center`} src={`${IMAGES_URL}/${adsData.image}`} />
-                </Container>  
-                <Card.Body className={styles.cardBody} >
+            <Card className={`{styles.card} card-width d-flex flex-column card-width`}>
+                <Card.Img variant="top" className={`${styles.cardImg} img-fluid w-100 h-100 text-center`} src={`${IMAGES_URL}/${adsData.image}`} />
+                <Card.Body className={`${styles.cardBody} d-flex flex-column justify-content-end align-items-center`} >
                     <Card.Title>{adsData.title}</Card.Title>
-                        <Card.Text className={styles.cardText}>
-                            {adsData.content}
-                        </Card.Text>
-                        <Link to={`/edit/${adsData._id}`}><Button variant="primary" size="lg">Go to add</Button></Link>
-                        <Button variant="primary" size="lg" onClick={deleteAd}>Delete</Button>
+                    <Card.Text className={styles.cardText}>
+                        {adsData.content}
+                    </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroup.Item><b>Price: </b>{adsData.price}</ListGroup.Item>
+                    <ListGroup.Item><b>Location: </b>{adsData.location}</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                    <Link to={`/edit/${adsData._id}`}><Button variant="primary" size="lg">Edit ad</Button></Link>
+                    <Button variant="primary" size="lg" onClick={deleteAd}>Delete</Button>
                 </Card.Body>    
             </Card>
             </>
